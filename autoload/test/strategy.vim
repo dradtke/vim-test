@@ -164,6 +164,11 @@ function! test#strategy#kitty(cmd) abort
   call s:execute_script('kitty_runner', cmd)
 endfunction
 
+function! test#strategy#kitty_direct(cmd) abort
+  let cmd = s:pretty_command(a:cmd)
+  call test#kitty#run('cd ' . shellescape(getcwd()) . '; ' . cmd)
+endfunction
+
 function! test#strategy#shtuff(cmd) abort
   if !exists('g:shtuff_receiver')
     echoerr 'You must define g:shtuff_receiver to use this strategy'
